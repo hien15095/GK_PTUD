@@ -29,15 +29,15 @@ Người dùng mở ứng dụng, bấm bắt đầu, làm bài trắc nghiệm 
 
 ```text
 app-1-quiz/
+├── frontend/
+│   ├── app.js
+│   ├── index.html
+│   └── styles.css
 ├── backend/
 │   ├── main.py
 │   ├── questions_data.py
 │   ├── requirements.txt
-│   ├── schemas.py
-│   └── static/
-│       ├── app.js
-│       ├── index.html
-│       └── styles.css
+│   └── schemas.py
 └── README.md
 ```
 
@@ -258,9 +258,9 @@ Nếu đề yêu cầu thêm tính năng mới, bạn nên sửa ở các vị t
 
 - `backend/questions_data.py`: thêm hoặc đổi câu hỏi
 - `backend/main.py`: thêm API mới hoặc đổi cách chấm điểm
-- `backend/static/index.html`: thêm nút hoặc thêm khối giao diện
-- `backend/static/app.js`: thêm logic xử lý giao diện
-- `backend/static/styles.css`: chỉnh màu, bố cục, khoảng cách
+- `frontend/index.html`: thêm nút hoặc thêm khối giao diện
+- `frontend/app.js`: thêm logic xử lý giao diện
+- `frontend/styles.css`: chỉnh màu, bố cục, khoảng cách
 
 Với cấu trúc hiện tại, phần giao diện nằm gọn trong 3 file nên rất nhanh để:
 
@@ -272,46 +272,46 @@ Với cấu trúc hiện tại, phần giao diện nằm gọn trong 3 file nên
 
 Nếu muốn sửa phần thông tin sinh viên:
 
-- `backend/static/index.html`: sửa ô nhập `Họ và tên`, `MSSV`
-- `backend/static/app.js`: sửa phần kiểm tra dữ liệu trước khi bắt đầu
-- `backend/static/styles.css`: sửa giao diện form nhập
+- `frontend/index.html`: sửa ô nhập `Họ và tên`, `MSSV`
+- `frontend/app.js`: sửa phần kiểm tra dữ liệu trước khi bắt đầu
+- `frontend/styles.css`: sửa giao diện form nhập
 
 ## 8.2. Nếu muốn gỡ một tính năng thì làm sao?
 
 Không nên xóa một đoạn code đơn lẻ ngay, vì mỗi tính năng thường đi cùng 4 phần:
 
-1. `backend/static/index.html`: phần giao diện
-2. `backend/static/styles.css`: phần màu sắc và bố cục
-3. `backend/static/app.js`: phần logic xử lý
+1. `frontend/index.html`: phần giao diện
+2. `frontend/styles.css`: phần màu sắc và bố cục
+3. `frontend/app.js`: phần logic xử lý
 4. `backend/main.py` hoặc dữ liệu nếu tính năng liên quan backend
 
 Ví dụ cách gỡ an toàn:
 
 - Gỡ `đồng hồ đếm ngược`
-  - Xóa `timer-box` trong `index.html`
-  - Xóa style `.timer-box` trong `styles.css`
-  - Xóa hàm `startTimer`, `stopTimer`, `renderTimer` trong `app.js`
+  - Xóa `timer-box` trong `frontend/index.html`
+  - Xóa style `.timer-box` trong `frontend/styles.css`
+  - Xóa hàm `startTimer`, `stopTimer`, `renderTimer` trong `frontend/app.js`
   - Xóa các dòng gọi timer trong `startQuiz`, `submitQuiz`, `retryQuiz`, `redoQuiz`
 
 - Gỡ `nút câu trước / câu sau`
-  - Xóa 2 nút trong `index.html`
-  - Xóa hàm `goPrevQuestion`, `goNextQuestion` trong `app.js`
+  - Xóa 2 nút trong `frontend/index.html`
+  - Xóa hàm `goPrevQuestion`, `goNextQuestion` trong `frontend/app.js`
   - Xóa 2 dòng `addEventListener` tương ứng
 
 - Gỡ `danh sách trạng thái câu hỏi`
-  - Xóa `status-list` trong `index.html`
+  - Xóa `status-list` trong `frontend/index.html`
   - Xóa style `.status-list`, `.status-button`
   - Xóa hàm `renderStatusList` và các chỗ gọi hàm này
 
 - Gỡ `thanh tiến độ`
-  - Xóa khối `progress-wrapper` trong `index.html`
+  - Xóa khối `progress-wrapper` trong `frontend/index.html`
   - Xóa style `.progress-track`, `.progress-bar`
   - Rút gọn hàm `renderProgress`
 
 - Gỡ `form nhập Họ tên / MSSV`
-  - Xóa 2 ô nhập trong `index.html`
+  - Xóa 2 ô nhập trong `frontend/index.html`
   - Xóa khối hiển thị `user-info-box` và `result-user-info`
-  - Xóa `userInfo`, `saveUserInfo`, `renderUserInfo` trong `app.js`
+  - Xóa `userInfo`, `saveUserInfo`, `renderUserInfo` trong `frontend/app.js`
   - Xóa phần CSS của `.form-grid`, `.field-group`, `.text-input`, `.user-info-box`
 
 Nguyên tắc an toàn khi gỡ:

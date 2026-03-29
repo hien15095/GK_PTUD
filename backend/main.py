@@ -10,10 +10,10 @@ from schemas import AnswerResult, PublicQuestion, SubmitRequest, SubmitResponse
 
 # Ghi chú:
 # - BASE_DIR là thư mục chứa file main.py.
-# - STATIC_DIR là thư mục chứa giao diện HTML/CSS/JS.
+# - FRONTEND_DIR là thư mục frontend riêng, chứa HTML/CSS/JS thuần.
 # - Tách ra biến giúp sửa đường dẫn dễ hơn khi đổi cấu trúc project.
 BASE_DIR = Path(__file__).resolve().parent
-STATIC_DIR = BASE_DIR / "static"
+FRONTEND_DIR = BASE_DIR.parent / "frontend"
 
 # Ghi chú:
 # - app là đối tượng FastAPI chính của dự án.
@@ -25,18 +25,18 @@ app = FastAPI(
 )
 
 # Ghi chú:
-# - Sau khi tối giản, frontend được viết bằng HTML/CSS/JS thuần.
-# - FastAPI sẽ phục vụ luôn giao diện nên không cần Node.js hay CORS riêng nữa.
-app.mount("/static", StaticFiles(directory=STATIC_DIR), name="static")
+# - Frontend được viết bằng HTML/CSS/JS thuần và đặt trong thư mục frontend riêng.
+# - FastAPI sẽ phục vụ luôn thư mục này nên không cần Node.js hay CORS riêng nữa.
+app.mount("/static", StaticFiles(directory=FRONTEND_DIR), name="static")
 
 
 @app.get("/")
 def read_root():
     """Trả về giao diện chính của ứng dụng quiz."""
 
-    # Khi người dùng mở trang chủ, backend trả file index.html.
+    # Khi người dùng mở trang chủ, backend trả file index.html trong thư mục frontend.
     # Nhờ đó project chỉ cần 1 server Python là chạy được toàn bộ app.
-    return FileResponse(STATIC_DIR / "index.html")
+    return FileResponse(FRONTEND_DIR / "index.html")
 
 
 @app.get("/questions", response_model=List[PublicQuestion])
