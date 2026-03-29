@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quiz App</title>
+    <link rel="stylesheet" href="/static/styles.css" />
+  </head>
+  <body>
+    <main class="app">
+      <section class="card">
+        <!-- Phần đầu trang: tên ứng dụng và đồng hồ đếm ngược -->
+        <div class="hero">
+          <div>
+            <p class="label">App 1 - Quiz App</p>
+            <h1>Trắc nghiệm FastAPI</h1>
+          </div>
+          <div id="timer-box" class="timer-box hidden">
+            <span>Thời gian còn lại</span>
+            <strong id="timer-text">00:00</strong>
+          </div>
+        </div>
+
+        <!-- Hộp báo lỗi chung -->
+        <div id="error-box" class="message error hidden"></div>
+
+        <!-- Màn hình loading khi app mới mở -->
+        <div id="loading-box" class="start-box">
+          <p>Đang tải câu hỏi...</p>
+        </div>
+
+        <!-- Màn hình bắt đầu bài làm -->
+        <div id="start-box" class="start-box hidden">
+          <p id="question-count"></p>
+          <p class="helper-text">
+            Bài làm có đồng hồ đếm ngược, mỗi lần hiển thị một câu để dễ tập trung.
+          </p>
+          <div class="form-grid">
+            <div class="field-group">
+              <label for="full-name-input">Họ và tên</label>
+              <input
+                id="full-name-input"
+                class="text-input"
+                type="text"
+                placeholder="Nhập họ và tên"
+              />
+            </div>
+            <div class="field-group">
+              <label for="student-id-input">MSSV</label>
+              <input
+                id="student-id-input"
+                class="text-input"
+                type="text"
+                placeholder="Nhập mã số sinh viên"
+              />
+            </div>
+          </div>
+          <button id="start-button" class="button primary">Bắt đầu làm bài</button>
+        </div>
+
+        <!-- Màn hình đang làm bài -->
+        <div id="quiz-box" class="hidden">
+          <div id="user-info-box" class="user-info-box hidden"></div>
+
+          <!-- Thanh thông tin tiến độ -->
+          <div class="top-bar quiz-top-bar">
+            <div>
+              <strong id="question-position">Câu 1 / 10</strong>
+              <p id="progress-text">Đã chọn 0/0 câu</p>
+            </div>
+            <div class="progress-wrapper">
+              <div class="progress-track">
+                <div id="progress-bar" class="progress-bar"></div>
+              </div>
+              <span id="progress-percent">0%</span>
+            </div>
+          </div>
+
+          <!-- Danh sách trạng thái từng câu -->
+          <div id="status-list" class="status-list"></div>
+
+          <!-- Khu vực hiển thị câu hỏi hiện tại -->
+          <div id="question-view" class="question-view"></div>
+
+          <!-- Nút chuyển câu -->
+          <div class="navigation-row">
+            <button id="prev-button" class="button secondary">Câu trước</button>
+            <button id="next-button" class="button secondary">Câu sau</button>
+          </div>
+
+          <!-- Nút thao tác chính -->
+          <div class="action-row">
+            <button id="submit-button" class="button primary">Nộp bài</button>
+            <button id="retry-button" class="button secondary">Làm lại</button>
+          </div>
+        </div>
+
+        <!-- Màn hình kết quả sau khi nộp bài -->
+        <div id="result-box" class="hidden">
+          <section class="result-screen">
+            <div class="result-header">
+              <div>
+                <p class="label">Kết quả bài làm</p>
+                <h2>Hoàn thành bài quiz</h2>
+              </div>
+              <button id="redo-button" class="button primary">Làm lại từ đầu</button>
+            </div>
+
+            <div id="result-user-info" class="user-info-box hidden"></div>
+            <div id="result-content"></div>
+          </section>
+        </div>
+      </section>
+    </main>
+
+    <script src="/static/app.js"></script>
+  </body>
+</html>
